@@ -6,4 +6,13 @@ the [Advent of Code 2015 Playlist](https://www.youtube.com/playlist?list=PLLkeQ2
 
 # How to Build
 
-Haha, little brother, but for now, you have to run gcc individually. In the future, I'll make a Makefile for you, but not yet :p
+Yo have to generate the build with CMAKE.
+
+you can use (`SOW_STD_EXAMPLES` cmake variable to `OFF`) if you do not want to compile the standard library examples.
+
+then go to the generated build directory and do `make` or IDK. build the project with the tools you selected.
+
+# TODO
+
+- organice day1 and day2 to use the `std_sow` standard library.
+- separate header files from sources files in the `sow_std` library.
