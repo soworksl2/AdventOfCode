@@ -5,17 +5,7 @@
 #include <assert.h>
 #include <stdbool.h>
 
-char* get_input(){
-    FILE* f = fopen("input.txt", "rb");
-    fseek(f, 0, SEEK_END);
-    long fc = ftell(f);
-
-    char* buffer = (char*) malloc(fc + 1);
-    rewind(f);
-
-    fread(buffer, 1, fc + 1, f);
-    return buffer;
-}
+#include "sow_std.h"
 
 void solve(char* input){
     size_t count = strlen(input) - 1;
@@ -55,7 +45,7 @@ void solve2(char* input){
 }
 
 int main(){
-    char* input = get_input();
+    char* input = S_file_get_content_by_filename("input.txt");
 
     solve(input);
     solve2(input);
