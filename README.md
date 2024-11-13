@@ -14,5 +14,5 @@ then go to the generated build directory and do `make` or IDK. build the project
 
 # TODO
 
-- organice day1 and day2 to use the `std_sow` standard library.
-- separate header files from sources files in the `sow_std` library.
+- name the functions a little bit better bro.
+- `S_split` have segfault if the str passed is null!.
