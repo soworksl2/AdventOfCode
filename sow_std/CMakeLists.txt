@@ -4,15 +4,18 @@ option(SOW_STD_EXAMPLES "build examples of the sow_std library" ON)
 set(SRC 
     sstr.c
     svector.c
-    svectorstr.c)
+    svectorstr.c
+    sfile.c)
 
 set(HFILES
-    smath.h
-    sstr.h
-    svector.h
-    svectorstr.h)
+    include/smath.h
+    include/sstr.h
+    include/svector.h
+    include/svectorstr.h
+    include/sfile.h)
 
 add_library(sow_std STATIC ${SRC} ${HFILES})
+target_include_directories(sow_std PUBLIC include)
 
 if (SOW_STD_EXAMPLES)
     add_executable(sstr mainsstr.c)
