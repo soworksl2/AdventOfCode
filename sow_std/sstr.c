@@ -127,13 +127,10 @@ size_t S_stripcount(const char* str){
     return s + e;
 }
 
-char* S_to_hex_format(unsigned const char* str, int32_t count){
-    size_t l = (count < 0)? strlen(str) : count;
-    char* hex_str = malloc((l * 2) + 1);
-    for (size_t i = 0; i < l; i++) {
-        sprintf(&hex_str[i * 2], "%02x", str[i]);
+void S_to_hex_format(const uint8_t* bytes, size_t count, char* buf){
+    for (size_t i = 0; i < count; ++i) {
+        sprintf(&buf[i * 2], "%02x", bytes[i]);
     }
 
-    hex_str[l * 2] = '\0';
-    return hex_str;
+    buf[count * 2] = '\0';
 }

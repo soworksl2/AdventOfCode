@@ -40,7 +40,8 @@ size_t S_striprcount(const char* str);
 size_t S_stripcount(const char* str);
 
 //Convert a string interpreted as a buffer of unsigned char to another string as hexadecimal
-char* S_to_hex_format(unsigned const char* str, int32_t count);
+//buf needs to be (count * 2) + 1 or it is undefined behaviour.
+void S_to_hex_format(const uint8_t* bytes, size_t count, char* buf);
 
 
 #endif //__SSTR_H__
