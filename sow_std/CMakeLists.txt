@@ -5,7 +5,8 @@ set(SRC
     sstr.c
     svector.c
     svectorstr.c
-    sfile.c)
+    sfile.c
+    smd5.c)
 
 set(HFILES
     include/smath.h
@@ -13,7 +14,7 @@ set(HFILES
     include/svector.h
     include/svectorstr.h
     include/sfile.h
-    in)
+    include/smd5.h)
 
 add_library(sow_std STATIC ${SRC} ${HFILES})
 target_include_directories(sow_std PUBLIC include)

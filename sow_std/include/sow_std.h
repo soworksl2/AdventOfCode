@@ -8,6 +8,7 @@
 #include "sstr.h"
 #include "svector.h"
 #include "svectorstr.h"
+#include "smd5.h"
 
 
 #endif //__SOW_STD_H__
