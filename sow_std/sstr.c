@@ -4,6 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stddef.h>
+#include <stdio.h>
 
 
 //FORWARD DECLARATIONS
@@ -124,4 +125,15 @@ size_t S_stripcount(const char* str){
     size_t s = S_striplcount(str);
     size_t e = S_striprcount(str);
     return s + e;
+}
+
+char* S_to_hex_format(unsigned const char* str, int32_t count){
+    size_t l = (count < 0)? strlen(str) : count;
+    char* hex_str = malloc((l * 2) + 1);
+    for (size_t i = 0; i < l; i++) {
+        sprintf(&hex_str[i * 2], "%02x", str[i]);
+    }
+
+    hex_str[l * 2] = '\0';
+    return hex_str;
 }

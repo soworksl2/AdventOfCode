@@ -17,3 +17,4 @@ then go to the generated build directory and do `make` or IDK. build the project
 - name the functions a little bit better bro.
 - `S_split` have segfault if the str passed is null!.
 - in MAX, MIN, macros, please, cast data to the corresponding type to ensure void* arrays works ok. in smath.h
+- `S_to_hex_format` needs refactor weird unsigned char, just build and you will see.

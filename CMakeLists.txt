@@ -18,3 +18,4 @@ add_subdirectory(sow_std) #our standard library for this project, and who knows?
 add_subdirectory(day1)
 add_subdirectory(day2)
 add_subdirectory(day3)
+add_subdirectory(day4)

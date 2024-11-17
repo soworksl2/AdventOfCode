@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #include "svectorstr.h"
 
@@ -38,6 +39,8 @@ size_t S_striprcount(const char* str);
 //the same as S_striplcount but at both side.
 size_t S_stripcount(const char* str);
 
+//Convert a string interpreted as a buffer of unsigned char to another string as hexadecimal
+char* S_to_hex_format(unsigned const char* str, int32_t count);
 
 
 #endif //__SSTR_H__
