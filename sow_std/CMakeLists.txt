@@ -12,7 +12,8 @@ set(HFILES
     include/sstr.h
     include/svector.h
     include/svectorstr.h
-    include/sfile.h)
+    include/sfile.h
+    in)
 
 add_library(sow_std STATIC ${SRC} ${HFILES})
 target_include_directories(sow_std PUBLIC include)
