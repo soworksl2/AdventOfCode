@@ -81,7 +81,7 @@ public:
 
 private:
     static std::string_view extract_operation_from_line(const std::string_view line, InstOp& op){
-        constexpr std::string_view toogle{"toogle"};
+        constexpr std::string_view toogle{"toggle"};
         constexpr std::string_view turn_on{"turn on"};
         constexpr std::string_view turn_off{"turn off"};
 
