@@ -10,7 +10,7 @@
 #include <cstdlib>
 
 constexpr size_t LIGTH_GRID_SIZE = 1000;
-constexpr size_t INST_LINE_BUFFER_SIZE = 1000;
+constexpr size_t INST_LINE_BUFFER_SIZE = 50;
 
 enum class InstOp{
     TOOGLE,
