@@ -117,15 +117,16 @@ private:
 
     static std::string_view extract_vect2d_from_line(const std::string_view line, Vector2d& out){
         std::string_view next_part = extract_number_from_line(line, out.x);
+        next_part.remove_prefix(1); //remove comma separator
         return extract_number_from_line(next_part, out.y);
     }
 
     static Range extract_range_from_line(const std::string_view line){
-        constexpr std::string_view through{"through"};
+        constexpr std::string_view through{" through "};
 
         Vector2d start, end;
         std::string_view next_part = extract_vect2d_from_line(line, start);
-        next_part.remove_prefix(1 + through.size() + 1);
+        next_part.remove_prefix(through.size());
         extract_vect2d_from_line(next_part, end);
         return {start, end};
     }
@@ -133,7 +134,7 @@ private:
 std::ostream& operator<<(std::ostream& os, const Inst& val){
     switch(val.m_op){
         case InstOp::TOOGLE:
-            os << "toogle";
+            os << "toggle";
             break;
         case InstOp::TURN_OFF:
             os << "turn off";
