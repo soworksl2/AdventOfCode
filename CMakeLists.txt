@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.30)
 
 project(AOC2015
         HOMEPAGE_URL https://github.com/soworksl2/AdventOfCode2015
-        LANGUAGES C)
+        LANGUAGES C CXX)
+
+    set(CMAKE_CXX_STANDARD 20)
 
 
 #set pedantic outputs
