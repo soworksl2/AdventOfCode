@@ -31,19 +31,19 @@ std::ostream& operator<<(std::ostream& os, const Vector2d& val){
     return os;
 }
 
-class Range{
-private:
-    Vector2d m_start;
-    Vector2d m_end;
+struct Range{
+public:
+    Vector2d start;
+    Vector2d end;
 public:
     Range(Vector2d start, Vector2d end)
-    : m_start{start}, m_end{end}
+    : start{start}, end{end}
     {}
 
     friend std::ostream& operator<<(std::ostream& os, const Range& val);
 };
 std::ostream& operator<<(std::ostream& os, const Range& val){
-    os << val.m_start << " through " << val.m_end;
+    os << val.start << " through " << val.end;
     return os;
 }
 
@@ -78,6 +78,58 @@ public:
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Inst& val);
+
+    void apply_to(std::array<bool, LIGTH_GRID_SIZE * LIGTH_GRID_SIZE>& grid){
+        int32_t sr = m_selection.start.y;
+        int32_t sc = m_selection.start.x;
+        int32_t er = m_selection.end.y;
+        int32_t ec = m_selection.end.x;
+        for (size_t i=sr; i <= er; ++i){
+            for (size_t j=sc; j<= ec; ++j){
+                bool* cit = grid.data() + ((i*LIGTH_GRID_SIZE) + j);
+                switch(m_op){
+                    case InstOp::TURN_OFF:
+                        *cit = false;
+                        break;
+                    case InstOp::TURN_ON:
+                        *cit = true;
+                        break;
+                    case InstOp::TOOGLE:
+                        *cit = !(*cit);
+                        break;
+                }
+            }
+        }
+    }
+
+    void apply_to(std::vector<int32_t>& grid){
+        int8_t operand;
+        switch(m_op){
+            case InstOp::TURN_OFF:
+                operand = -1;
+                break;
+            case InstOp::TURN_ON:
+                operand = 1;
+                break;
+            case InstOp::TOOGLE:
+                operand = 2;
+                break;
+        }
+
+        int32_t sr = m_selection.start.y;
+        int32_t sc = m_selection.start.x;
+        int32_t er = m_selection.end.y;
+        int32_t ec = m_selection.end.x;
+        for (size_t i=sr; i <= er; ++i){
+            for (size_t j=sc; j <= ec; ++j){
+                int32_t* cit = grid.data() + ((i*LIGTH_GRID_SIZE) + j);
+                *cit += operand;
+                if (*cit < 0){
+                    *cit = 0;
+                }
+            }
+        }
+    }
 
 private:
     static std::string_view extract_operation_from_line(const std::string_view line, InstOp& op){
@@ -148,16 +200,43 @@ std::ostream& operator<<(std::ostream& os, const Inst& val){
     return os;
 }
 
+size_t count_ligths(std::array<bool, LIGTH_GRID_SIZE * LIGTH_GRID_SIZE>& grid){
+    size_t c = 0;
+    for(auto ligth : grid){
+        if(ligth){
+            c++;
+        }
+    }
+    return c;
+}
+
+size_t sum_ligths(std::vector<int32_t>& grid){
+    size_t sum = 0;
+    for (auto ligth : grid){
+        sum += ligth;
+    }
+    return sum;
+}
+
 int main(){
     std::ifstream input{"input.txt"};
     std::array<bool, LIGTH_GRID_SIZE * LIGTH_GRID_SIZE> ligth_grid;
-    std::vector<int32_t> ligth_grid2{LIGTH_GRID_SIZE * LIGTH_GRID_SIZE, 0};
+    std::vector<int32_t> ligth_grid2(LIGTH_GRID_SIZE * LIGTH_GRID_SIZE, 0);
 
     ligth_grid.fill(false);
 
     while(std::optional<Inst> inst = Inst::get_next_inst_from_stream(input)){
-        std::cout << inst.value() << "\n";
+        Inst val = inst.value();
+        val.apply_to(ligth_grid);
+        val.apply_to(ligth_grid2);
+        //std::cout << inst.value() << " - " << sum_ligths(ligth_grid2) << "\n";
     }
+
+    size_t lcount = count_ligths(ligth_grid);
+    size_t lsum = sum_ligths(ligth_grid2);
+
+    std::cout << "Part1:\n" << "    ligths on: " << lcount << "\n";
+    std::cout << "Part2:\n" << "    total brigth: " << lsum << "\n";
 
     return 0;
 }
